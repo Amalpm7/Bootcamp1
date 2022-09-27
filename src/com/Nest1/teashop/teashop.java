@@ -1,5 +1,7 @@
 package com.Nest1.teashop;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import  java.util.Scanner;
 
 public class teashop {
@@ -7,14 +9,21 @@ public class teashop {
     public static void main(String[] args) {
 
         int qty,choice,mode,total=0;
+        String name;
         Fooditems Food =new Fooditems(8,9,20,15,20);
         Fooditems takeAway = new Fooditems(7,11,25,50,40);
+        HashMap<String,String> map= new HashMap<>();
+        ArrayList<String> transactionList = new ArrayList<>();
+
 
         Scanner scanner =new Scanner(System.in);
+        outer:while (true){
+
             System.out.println("Select Mode");
             System.out.println("1.Food");
             System.out.println("2.takeAway");
-            System.out.println("Exit");
+            System.out.println("3.View accounts");
+            System.out.println("4.Exit");
             mode = scanner.nextInt();
 
             switch (mode){
@@ -57,11 +66,21 @@ public class teashop {
                                 qty = scanner.nextInt();
                                 total = (Food.getIceCream() * qty) + total;
                                 break;
-                            case 6:System.out.println("Total Bill :"+total);
-                                System.exit(0);
-                            case 7:
-                                System.exit(0);
+                            case 6:
+                                int random = ((int) (Math.random()*9000)+1000);
+                                System.out.println("Enter your name");
+                                name =scanner.next();
+                                System.out.println("Total Bill :"+total);
+                                map.put("name",name);
+                                map.put("Amount",String.valueOf(total));
+                                map.put("Invoice",String.valueOf(random));
+                                map.put("mode","Food");
+                                transactionList.add(String.valueOf(map));
                                 break;
+                            case 7:
+                                continue outer;
+
+
                         }
                     }
                 case 2:
@@ -103,19 +122,34 @@ public class teashop {
                                 qty = scanner.nextInt();
                                 total = (takeAway.getIceCream() * qty) + total;
                                 break;
-                            case 6:System.out.println("Total Bill :"+total);
-                                System.exit(0);
-                            case 7:
-                                System.exit(0);
+                            case 6:
+                                int random = ((int) (Math.random()*9000)+1000);
+                                System.out.println("Enter your name");
+                                name =scanner.next();
+                                System.out.println("Total Bill :"+total);
+                                map.put("name",name);
+                                map.put("Amount",String.valueOf(total));
+                                map.put("Invoice",String.valueOf(random));
+                                map.put("mode","take away");
+                                transactionList.add(String.valueOf(map));
                                 break;
+                            case 7:
+                                continue outer;
+
                         }
                     }
                 case 3:
-                    System.exit(0);
+                    System.out.println("View accounts");
+                    for (int i = 0; i < transactionList.size(); i++) {
+                        System.out.println(transactionList.get(i));
+
+                    }
+                    break;
                 default:
                     System.out.println("Invalid entry");
 
             }
+        }
 
 
         }
